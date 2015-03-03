@@ -1,0 +1,61 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  
+  //Wrapper
+  #wrapper
+
+    // Device INFO
+    #deviceInfo
+      h2 Device Info
+      p
+        strong Device Name:
+        | <span id='unitInfoUnitName'></span>
+        br
+        strong Signal Strength:
+        | <span id='unitInfoSigStrength'></span>
+        br
+        strong Sensor:
+        | <span id='CapturedThermalData'></span>
+        br
+        strong Time:
+        | <span id='CapturedTime'></span>
+    // /Unit INFO
+  
+    // Device LIST
+    h2 Device List
+    #deviceList
+      table
+        thead
+          th Unit Name
+          th Signal Strength
+          th Thermal
+          th Humidity
+          th Pressure
+          th Interval
+          th Measured Date
+          th Start Date
+          th End Date
+        tbody
+    // /USER LIST
+
+    // ADD Devices
+    h2 Add Devices
+    #addDevice
+      fieldset
+        input#inputDeviceName(type='text', placeholder='DeviceName')
+        br
+        input#inputInterval(type='text', placeholder='Interval')
+        br
+        input#inputSigStrength(type='text',placeholder='Signal Strength')
+        input#inputThermal(type='text',placeholder='Thermal')
+        br
+        input#inputHumidity(type='text',placeholder='Humidity')
+        input#inputMeasuredDate(type='text',placeholder='Measured Date')
+        br
+        button#btnAddDevice Add Device
+    // /ADD Devices
+
+  // /WRAPPER
