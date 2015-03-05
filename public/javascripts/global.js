@@ -8,7 +8,7 @@ $(document).ready(function() {
     populateTable();
     
     //Add User button click
-    $('#btnAddDevice').on('click', addUser);
+    $('#btnAddDevice').on('click', addDevice);
     
     // Delete User link click
     $('#deviceList table tbody').on('click', 'td a.linkdeletedevice', deleteDevice);
@@ -21,7 +21,7 @@ $(document).ready(function() {
 function populateTable() {
 
     // UsernameLink click
-    $('#deviceList table tbody').on('click','td a.linkshowuser',showDeviceInfo);
+    $('#deviceList table tbody').on('click','td a.linkshowdevice',showDeviceInfo);
     
     // Empty content string
     var tableContent = '';
@@ -36,7 +36,7 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.unitname + '">' + this.unitname + '</a></td>';
+            tableContent += '<td><a href="#" class="linkshowdevice" rel="' + this.unitname + '">' + this.unitname + '</a></td>';
             tableContent += '<td>' + this.sigstrength + '</td>';
             tableContent += '<td>' + this.thermal + '</td>';
             tableContent += '<td>' + this.himidity + '</td>';
@@ -45,7 +45,7 @@ function populateTable() {
             tableContent += '<td>' + this.mdate + '</td>';
             tableContent += '<td>' + this.sdate + '</td>';
             tableContent += '<td>' + this.edate + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="#" class="linkdeletedevice" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
 
@@ -100,7 +100,7 @@ function addDevice(event) {
             'mdate': $('#addDevice fieldset input#inputMeasuredDate').val()
         }
 
-        // Use AJAX to post the object to our adduser service
+        // Use AJAX to post the object to our adddevice service
         $.ajax({
             type: 'POST',
             data: newDevice,
