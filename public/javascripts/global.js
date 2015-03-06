@@ -205,11 +205,13 @@ function sendMsg2xbee(event) {
         };
 
         serialport.write(xbeeAPI.buildFrame(frame_obj));
-        console.log(xbeeAPI.buildFrame(frame_obj));
+        // console.log(xbeeAPI.buildFrame(frame_obj));
+        $('#ConsoleStrings').text(xbeeAPI.buildFrame(frame_ob;));
     });
 
     xbeeAPI.on("frame_object", function(frame) {
-        console.log(">>", frame);
+        //console.log(">>", frame);
+        $('ConsoleStrings').text(">>"+ frame);
     });
 };
 
