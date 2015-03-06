@@ -1,26 +1,26 @@
-// Userlist data array for filling in info box
+// Devicelist data array for filling in info Content table
 var DeviceListData = [];
 
 // DOM Ready =============================================================
 $(document).ready(function() {
 
-    // Populate the user table on initial page load
+    // Populate the device table on initial page load
     populateTable();
     
-    //Add User button click
+    //Add Device button click
     $('#btnAddDevice').on('click', addDevice);
     
-    // Delete User link click
+    // Delete Device link click
     $('#deviceList table tbody').on('click', 'td a.linkdeletedevice', deleteDevice);
 
 });
 
-// Functions =============================================================
 
+// Functions =============================================================
 // Fill table with data
 function populateTable() {
 
-    // UsernameLink click
+    // DevicenameLink click
     $('#deviceList table tbody').on('click','td a.linkshowdevice',showDeviceInfo);
     
     // Empty content string
@@ -30,7 +30,7 @@ function populateTable() {
     // Get query data by router.get in routes/users.js
     $.getJSON( '/users/capdata', function( data ) {
 
-        // Stick our user data array into a capdata variable in the global object
+        // Stick our device data array into a capdata variable in the global object
         DeviceListData = data;
 
         // For each item in our JSON, add a table row and cells to the content string

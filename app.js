@@ -5,11 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-// --- > Database < ----
+// Preparing for MongoDB access module
 var mongo =require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/sensedevice", {native_parser:true});
 
-
+// route setup
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ---> Make our db accessible to our router <---
+// Make our db accessible to our router
 // This code enable to return DB query by http://localhost:port/users/userlist
 app.use(function(req, res, next){
     req.db = db;
