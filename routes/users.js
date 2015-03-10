@@ -4,9 +4,10 @@ var router = express.Router();
 /* GET device listing. */
 /* http://ip_addr:port/users/capdata can return all data from capdata collections */
 router.get('/capdata', function(req, res) {
-  var db = req.db;
-  db.collection('capdata').find().toArray(function (err, items){res.json(items);
-  });
+    var db = req.db;
+    db.collection('capdata').find().toArray(function (err, items){
+        res.json(items);
+    });
 });
 
 /*

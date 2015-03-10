@@ -1,6 +1,10 @@
 // Devicelist data array for filling in info Content table
 var DeviceListData = [];
 
+var serialport = require("serialport");
+var xbee_api = require("xbee-api");
+var SerialPort = serialport.SerialPort;  //localize object constructor
+
 // DOM Ready =============================================================
 $(document).ready(function() {
 
@@ -180,10 +184,7 @@ function sendMsg2xbee(event) {
 
     event.preventDefault();
     
-    var util =require('util');
-    var SerialPort = require('serialport').SerialPort;
-    var xbee_api = require('xbee-api');
-
+    //var util = require('util');
     var C = xbee_api.constants;
 
     var xbeeAPI = new xbee_api.XBeeAPI({
