@@ -1,10 +1,6 @@
 // Devicelist data array for filling in info Content table
 var DeviceListData = [];
 
-//var serialport = require("serialport");
-//var xbee_api = require("xbee-api");
-//var SerialPort = serialport.SerialPort;  //localize object constructor
-
 // DOM Ready =============================================================
 $(document).ready(function() {
 

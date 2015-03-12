@@ -15,6 +15,7 @@
     "jade": "*",
     "mongoskin": "*",
     "xbee-api": "*",
-    "serialport": "*"
+    "serialport": "*",
+    "socket.io": "*"
   }
 }
