@@ -1,29 +1,20 @@
-var socketio = require('socket.io');
+var app = require('../app');
+var http =require('http').Server(app);
+var io = require('socket.io')(http);
 
-module.exports = sio;
 
-function sio(server) {
+function sio() {
     
-    var sio = socketio.listen(server);
-    sio.set('transports', ['websocket']);
-
-    // Connect Socket
-    sio.sockets.on('connection', function(socket) {
-
-        // Receiving data from xbee
-        socket.on('notice', function(socket) {
-
-            // Broadcast received data
-            socket.broadcast.emit('receive', {
-            
-                // Data JSON
-
-            });
-        });
-
-        socket.on("disconnect", function() {
-        });
+    http.listen(app.get('port'), function() {
+        console.log('listening!!!');
     });
 
+    io.on('connection', function(socket){
+        socket.on('chat message', function(msg){
+            console.log('message: ' + msg);
+            io.emit('chat message', msg);
+        });
+    });
 }
 
+module.exports = sio;

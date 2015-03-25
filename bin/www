@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 var debug = require('debug')('remote_sense');
 var app = require('../app');
-var sio = require('../models/sio');
 
 app.set('port', process.env.PORT || 3000);
 
@@ -9,4 +8,15 @@ var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-sio(server);
+// Need socket.io in this file (/bin/www) when we use Express4
+var io = require('socket.io').listen(server);
+
+//
+// sample for socket.io
+//
+io.on('connection', function(socket){
+    socket.emit('news', {hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});

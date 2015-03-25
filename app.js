@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 //
 // Arduino Control (add)
 //
-//var io = require('socket.io').listen(server);
 var SerialPort = require('serialport').SerialPort;
 var xbee_api = require("xbee-api");
 var C = xbee_api.constants;
@@ -64,9 +63,6 @@ serialport.on('data', function(input) {
 
 });
 
-
-
-    
 // Preparing for MongoDB access module
 // Make connection to sensedevice db
 var mongo =require('mongoskin');
@@ -77,6 +73,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -130,5 +127,7 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
 
 module.exports = app;
