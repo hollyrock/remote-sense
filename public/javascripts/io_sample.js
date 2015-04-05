@@ -1,7 +1,8 @@
+/*
 var socket = io.connect('http://' + location.host + '/');
 
-socket.on('news', function(data) {
+socket.on('pi_response', function(data) {
     console.log(data);
-    socket.emit('my other event', {pi: 'control'});
+    socket.emit('webc_response', {pi: 'control1'});
 });
-
+*/

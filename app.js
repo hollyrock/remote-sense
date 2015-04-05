@@ -6,11 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 //
-/// MongoDB
+/// MongoDB Code
 //
 
-// Preparing for MongoDB access module
-// Make connection to sensedevice db
+// Preparing for MongoDB access module. Make connection to sensedevice db
 var mongo =require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/sensedevice", {native_parser:true});
 
@@ -24,6 +23,14 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var app = express();
 
+// Make our db accessible to our router
+// This code enable to return DB query by http://localhost:port/users/capdata
+app.use(function(req, res, next){
+    req.db = db;
+    next();
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -36,16 +43,10 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
-// This code enable to return DB query by http://localhost:port/users/capdata
-app.use(function(req, res, next){
-    req.db = db;
-    next();
-});
-
 app.use('/', routes);
 app.use('/users', users);
 
+/// error handlers
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -53,13 +54,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-
-//
-/// error handlers
-//
-
-// development error handler
-// will print stacktrace
+// development error handler, will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -70,8 +65,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// production error handler, no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -81,9 +75,13 @@ app.use(function(err, req, res, next) {
 });
 
 
+
+
 //
+/// XBee, Serial port Code
 /// Connect Raspberry Pi to Arduino with XBee (API)
 //
+
 var SerialPort = require('serialport').SerialPort;
 var xbee_api = require("xbee-api");
 var C = xbee_api.constants;
@@ -111,6 +109,7 @@ serialport.on('open', function() {
 
     serialport.write(xbeeAPI.buildFrame(frame_obj));
     console.log('Serial Port Opened.');
+    console.log('Blow frame is sent from app.js');
     console.log(xbeeAPI.buildFrame(frame_obj));
 });
 
@@ -137,6 +136,5 @@ serialport.on('data', function(input) {
         }
 
 });
-
 
 module.exports = app;
