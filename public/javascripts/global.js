@@ -1,21 +1,6 @@
 // Devicelist data array for filling in info Content table
 var DeviceListData = [];
-
-// DOM Ready =============================================================
-$(document).ready(function() {
-
-    // Populate the device table on initial page load
-    populateTable();
-    
-    //Add Device button click
-    $('#btnAddDevice').on('click', addDevice);
-    
-    // Delete Device link click
-    $('#deviceList table tbody').on('click', 'td a.linkdeletedevice', deleteDevice);
-
-    // Xbee console
-    $('#btnSendMsg').on('click', sendMsg2xbee);
-});
+//var socket = io.connect('http://' + location.host + '/');
 
 
 // Functions =============================================================
@@ -174,14 +159,35 @@ function deleteDevice(event) {
 
 };
 
-// Send Message to Raspberry PI
-function sendMsg2xbee(event) {
-    var socket = io.connect('http://' + location.host + '/');
+// Send Message to Raspberry PI =========================================
 
+function sendMsg2xbee(event) {
+    
     event.preventDefault();
     
-    socket.on('pi_response', function(data) {
-        console.log(data);
-        socket.emit('webc_response', {pi: 'control1'});
-    });
+    var socket = io.connect('http://' + location.host + '/');
+    //var socket = io.connect('http://16.148.205.2:3000/');
+//    socket.on('pi_response', function(data) {
+//        console.log(data);
+        socket.emit('webc_response', {pi: 'ctrl command'});
+//    });
+    
+    console.log("Bang!");
 };
+
+
+// DOM Ready =============================================================
+$(document).ready(function() {
+
+    // Populate the device table on initial page load
+    populateTable();
+    
+    //Add Device button click
+    $('#btnAddDevice').on('click', addDevice);
+    
+    // Delete Device link click
+    $('#deviceList table tbody').on('click', 'td a.linkdeletedevice', deleteDevice);
+
+    // Xbee console button
+    $('#btnSendMsg').on('click', sendMsg2xbee);
+});

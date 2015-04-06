@@ -75,8 +75,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-
-
 //
 /// XBee, Serial port Code
 /// Connect Raspberry Pi to Arduino with XBee (API)

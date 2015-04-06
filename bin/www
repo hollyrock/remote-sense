@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 var debug = require('debug')('remote_sense');
 var app = require('../app');
+
 var server = require('http').Server(app);
 var io = require('../lib/sio');
 
 app.set('port', process.env.PORT || 3000);
-
 
 server.listen(app.get('port'), function(){
     debug('Express sever listening on port ' + server.address().port);
