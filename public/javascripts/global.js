@@ -1,7 +1,5 @@
 // Devicelist data array for filling in info Content table
 var DeviceListData = [];
-//var socket = io.connect('http://' + location.host + '/');
-
 
 // Functions =============================================================
 // Fill table with data
@@ -103,13 +101,11 @@ function addDevice(event) {
 
                 // Update the table
                 populateTable();
-
             }
             else {
 
                 // If something goes wrong, alert the error message that our service returned
                 alert('Error: ' + response.msg);
-
             }
         });
     }
@@ -136,47 +132,43 @@ function deleteDevice(event) {
             type: 'DELETE',
             url: '/users/deletedevice/' + $(this).attr('rel')
         }).done(function( response ) {
-
             // Check for a successful (blank) response
             if (response.msg === '') {
             }
             else {
                 alert('Error: ' + response.msg);
             }
-
             // Update the table
             populateTable();
-
         });
-
     }
     else {
-
         // If they said no to the confirm, do nothing
         return false;
-
     }
-
 };
 
-// Send Message to Raspberry PI =========================================
-
+// Send Message to Raspberry PI ============================
+// You need add Browser -> Raspi --> XBee code below
 function sendMsg2xbee(event) {
     
     event.preventDefault();
+
+    //XBee command needs to send following format
+    var frame_obj = {
+        type: 0x01,
+        id: 0x01,
+        destination16:"1234",
+        options: 0x00,
+        data: "I am global frame defined in global.js!"
+    };
     
     var socket = io.connect('http://' + location.host + '/');
-    //var socket = io.connect('http://16.148.205.2:3000/');
-//    socket.on('pi_response', function(data) {
-//        console.log(data);
-        socket.emit('webc_response', {pi: 'ctrl command'});
-//    });
-    
-    console.log("Bang!");
+    socket.emit('webc_response', frame_obj);
+    console.log("Bang!"); // for debug
 };
 
-
-// DOM Ready =============================================================
+// DOM Ready ===============================================
 $(document).ready(function() {
 
     // Populate the device table on initial page load
