@@ -158,9 +158,9 @@ function sendMsg2xbee(event) {
     var frame_obj = {
         type: 0x01,
         id: 0x01,
-        destination16:"1234",
+        destination16:"4321",
         options: 0x00,
-        data: "I am global frame defined in global.js!"
+        data: "I am a frame from web-client (global.js!)"
     };
     
     var socket = io.connect('http://' + location.host + '/');
