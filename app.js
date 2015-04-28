@@ -1,3 +1,6 @@
+///////////////////////////////////////////////
+// HTTP Server Setup
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,11 +13,7 @@ var bodyParser = require('body-parser');
 var mongo =require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/sensedevice", {native_parser:true});
 
-//
-/// Web Server setup
-//
-
-// route setup
+// router
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var app = express();

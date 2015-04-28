@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET device listing. */
 /* http://ip_addr:port/users/capdata can return all data from capdata collections */
 router.get('/capdata', function(req, res) {
