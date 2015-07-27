@@ -35,6 +35,27 @@ function populateTable() {
 };
 
 
+// Send Message to Raspberry PI ============================
+// You need add Browser -> Raspi --> XBee code below
+var socket = io.connect('');
+
+function sendMsg2xbee(event) {
+    
+    event.preventDefault();
+
+    //XBee command needs to send following format
+    var frame_obj = {
+        type: 0x01,
+        id: 0x01,
+        destination16:"4321",
+        options: 0x00,
+        data: "I am a frame from web-client (global.js!)"
+    };
+    
+    socket.emit('webc_command', frame_obj);
+    console.log("Bang!"); // for debug
+};
+
 //
 // showDeviceInfo:
 // Show Device Details
@@ -131,25 +152,6 @@ function deleteDevice(event) {
 };
 
 
-// Send Message to Raspberry PI ============================
-// You need add Browser -> Raspi --> XBee code below
-var socket = io.connect('');
-function sendMsg2xbee(event) {
-    
-    event.preventDefault();
-
-    //XBee command needs to send following format
-    var frame_obj = {
-        type: 0x01,
-        id: 0x01,
-        destination16:"4321",
-        options: 0x00,
-        data: "I am a frame from web-client (global.js!)"
-    };
-    
-    socket.emit('webc_command', frame_obj);
-    console.log("Bang!"); // for debug
-};
 
 
 // DOM Ready ===============================================
