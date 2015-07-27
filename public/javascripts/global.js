@@ -41,19 +41,35 @@ var socket = io.connect('');
 
 function sendMsg2xbee(event) {
     
-    event.preventDefault();
+  event.preventDefault();
 
-    //XBee command needs to send following format
+  //XBee command needs to send following format
+  /*
     var frame_obj = {
         type: 0x01,
-        id: 0x01,
+       	d: 0x01,
         destination16:"4321",
         options: 0x00,
         data: "I am a frame from web-client (global.js!)"
     };
-    
-    socket.emit('webc_command', frame_obj);
-    console.log("Bang!"); // for debug
+    */
+
+  var errorCount = 0;
+  $('#xbeeControl input').each(function(index, val) {
+    if($(this).val() === '') { errorCount++; }
+  });
+
+  if(errorCount === 0) {
+    var frame_obj = {
+      type: 0x01,
+      d: 0x01,
+      destination16:"4321",
+      options: 0x00,
+      data: $('#xbeeControl input#inputXbeeMessage').val()
+    }
+   }  
+  socket.emit('webc_command', frame_obj);
+  console.log("Bang!"); // for debug
 };
 
 //
